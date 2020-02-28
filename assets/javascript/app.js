@@ -12,7 +12,7 @@ $(document).ready(function () {
   }
   startPage();
 
-  $(".start-button").click( function (event) {
+  $(".start-button").click(function (event) {
     event.stopPropagation();
     console.log("function called");
     $(".start-button").empty();
@@ -21,7 +21,7 @@ $(document).ready(function () {
     timerDiv.addClass("row justify-content-md-center timerDiv");
     $(".time-body").append(timerDiv);
 
-    
+
     function buildTrivia() {
       $(".trivia").css("display", "block");
       $("#submit").css("display", "block");
@@ -55,23 +55,24 @@ $(document).ready(function () {
       const answerContainers = triviaContent.querySelectorAll('.answers');
 
 
-      questionsObject.forEach( (currentQuestion, questionNumber) => {
+      questionsObject.forEach((currentQuestion, questionNumber) => {
 
         const answerContainer = answerContainers[questionNumber];
         const selector = `input[name=question${questionNumber}]:checked`;
         const userAnswer = (answerContainer.querySelector(selector) || {}).value;
 
-        if(userAnswer === currentQuestion.correctAnswer){
+        if (userAnswer === currentQuestion.correctAnswer) {
           numCorrect++;
         }
-        else{
+        else {
           numWrong++;
         }
       });
       console.log(numCorrect);
       console.log(numWrong);
+      gameOver();
     }
-    
+
     const triviaContent = document.getElementById('trivia-content');
     const submitButton = $("#submit");
 
@@ -134,39 +135,47 @@ $(document).ready(function () {
 
     timeStart();
 
-
-
-
-
-
-
-
-
-
-
+    var clockRunning = false;
+    function timeStart() {
+      $(".timerDiv").text("Time Remaining: " + time + " Seconds");
+  
+      if (!clockRunning) {
+        intervalId = setInterval(count, 1000);
+        clockRunning = true;
+      }
+    }
+    var time = 30;
+    function count() {
+      time--;
+      console.log(time);
+      $(".timerDiv").text("Time Remaining: " + time + " Seconds");
+  
+      if (time === 0) {
+        showResults();
+      }
+    }
+  
   })
-
-
-
-
-
 });
 
-var clockRunning = false;
-function timeStart() {
-  $(".timerDiv").text("Time Remaining: " + time + " Seconds");
-
-  if (!clockRunning) {
-    intervalId = setInterval(count, 1000);
-    clockRunning = true;
-  }
-}
-var time = 30;
-function count() {
-  time--;
-  console.log(time);
-  $(".timerDiv").text("Time Remaining: " + time + " Seconds");
-}
 function gameOver() {
+  $(".game").empty();
+  clearInterval(intervalId);
+  clockRunning = false;
 
+  var gameStatus = $("<div>");
+  gameStatus.addClass("row justify-content-md-center");
+  gameStatus.html("<h2>All done!</h2>");
+
+  var gameData1 = $("<div>");
+  gameData1.addClass("row justify-content-md-center data1");
+  gameData1.text("Correct Answers: " + numCorrect);
+
+  var gameData2 = $("<div>");
+  gameData2.addClass("row justify-content-md-center data2");
+  gameData2.text("Incorrect Answers: " + numWrong);
+
+  $(".game").append(gameStatus);
+  $(".game").append(gameData1);
+  $(".game").append(gameData2);
 }
