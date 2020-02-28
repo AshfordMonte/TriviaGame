@@ -102,7 +102,7 @@ $(document).ready(function () {
         answers: {
           a: "Rick Wakeman",
           b: "Chris Squire",
-          c: "Jpn Anderson",
+          c: "Jon Anderson",
           d: "Bill Bruford"
         },
         correctAnswer: "b"
@@ -138,7 +138,7 @@ $(document).ready(function () {
     var clockRunning = false;
     function timeStart() {
       $(".timerDiv").text("Time Remaining: " + time + " Seconds");
-  
+
       if (!clockRunning) {
         intervalId = setInterval(count, 1000);
         clockRunning = true;
@@ -147,14 +147,13 @@ $(document).ready(function () {
     var time = 30;
     function count() {
       time--;
-      console.log(time);
       $(".timerDiv").text("Time Remaining: " + time + " Seconds");
-  
+
       if (time === 0) {
         showResults();
       }
     }
-  
+
   })
 });
 
@@ -168,11 +167,11 @@ function gameOver() {
   gameStatus.html("<h2>All done!</h2>");
 
   var gameData1 = $("<div>");
-  gameData1.addClass("row justify-content-md-center data1");
+  gameData1.addClass("row justify-content-md-center h2");
   gameData1.text("Correct Answers: " + numCorrect);
 
   var gameData2 = $("<div>");
-  gameData2.addClass("row justify-content-md-center data2");
+  gameData2.addClass("row justify-content-md-center h2");
   gameData2.text("Incorrect Answers: " + numWrong);
 
   $(".game").append(gameStatus);
