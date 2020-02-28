@@ -1,3 +1,6 @@
+var numCorrect = 0;
+var numWrong = 0;
+
 $(document).ready(function () {
 
   function startPage() {
@@ -44,11 +47,32 @@ $(document).ready(function () {
           );
         }
       );
-      triviaContent.html(output.join(''));
+      triviaContent.innerHTML = output.join('');
     }
-    function showResults() {}
+
+    function showResults() {
+
+      const answerContainers = triviaContent.querySelectorAll('.answers');
+
+
+      questionsObject.forEach( (currentQuestion, questionNumber) => {
+
+        const answerContainer = answerContainers[questionNumber];
+        const selector = `input[name=question${questionNumber}]:checked`;
+        const userAnswer = (answerContainer.querySelector(selector) || {}).value;
+
+        if(userAnswer === currentQuestion.correctAnswer){
+          numCorrect++;
+        }
+        else{
+          numWrong++;
+        }
+      });
+      console.log(numCorrect);
+      console.log(numWrong);
+    }
     
-    const triviaContent = $(".trivia-content");
+    const triviaContent = document.getElementById('trivia-content');
     const submitButton = $("#submit");
 
     const questionsObject = [
@@ -142,4 +166,7 @@ function count() {
   time--;
   console.log(time);
   $(".timerDiv").text("Time Remaining: " + time + " Seconds");
+}
+function gameOver() {
+
 }
