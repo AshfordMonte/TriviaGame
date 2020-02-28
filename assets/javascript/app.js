@@ -16,11 +16,12 @@ $(document).ready(function () {
 
     var timerDiv = $("<div>");
     timerDiv.addClass("row justify-content-md-center timerDiv");
-    $(".container-body").append(timerDiv);
+    $(".time-body").append(timerDiv);
 
     
     function buildTrivia() {
       $(".trivia").css("display", "block");
+      $("#submit").css("display", "block");
       console.log("Build Trivia called");
       const output = [];
 
@@ -106,9 +107,6 @@ $(document).ready(function () {
     buildTrivia();
 
     submitButton.on("click", showResults);
-
-
-
 
     timeStart();
 

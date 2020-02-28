@@ -1,3 +1,6 @@
 .trivia {
   display: none;
 }
+#submit {
+  display: none;
+}
